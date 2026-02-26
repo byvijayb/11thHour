@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Policies — 11th Hour</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #07070a;
+    --paper: #f5f0e8;
+    --ink: #1a1510;
+    --gold: #c9a84c;
+    --gold-dim: #6b5828;
+    --white: rgba(245,240,232,0.9);
+    --muted: rgba(245,240,232,0.45);
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1rem, 2.5vw, 1.12rem);
+    line-height: 1.8;
+    min-height: 100vh;
+  }
+
+  .wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 4rem 1.8rem 6rem;
+  }
+
+  /* Back link */
+  .back {
+    display: inline-block;
+    font-family: 'Cinzel', serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    text-decoration: none;
+    margin-bottom: 3rem;
+    transition: color 0.3s;
+  }
+  .back:hover { color: var(--gold); }
+
+  /* Site name */
+  .site-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.6;
+    margin-bottom: 0.6rem;
+  }
+
+  h1 {
+    font-size: clamp(1.8rem, 6vw, 2.4rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--white);
+    margin-bottom: 0.4rem;
+    line-height: 1.2;
+  }
+
+  .last-updated {
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-bottom: 3.5rem;
+  }
+
+  /* Section divider */
+  .policy-section {
+    margin-bottom: 3.5rem;
+    padding-bottom: 3.5rem;
+    border-bottom: 1px solid rgba(201,168,76,0.12);
+  }
+  .policy-section:last-of-type {
+    border-bottom: none;
+  }
+
+  h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.7;
+    margin-bottom: 1.2rem;
+    font-weight: 400;
+  }
+
+  p {
+    color: rgba(245,240,232,0.75);
+    margin-bottom: 1rem;
+  }
+  p:last-child { margin-bottom: 0; }
+
+  a {
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(201,168,76,0.3);
+    transition: border-color 0.3s;
+  }
+  a:hover { border-color: var(--gold); }
+
+  /* Contact block */
+  .contact-block {
+    background: rgba(201,168,76,0.04);
+    border: 1px solid rgba(201,168,76,0.14);
+    padding: 1.4rem 1.6rem;
+    margin-top: 1rem;
+  }
+  .contact-block p {
+    margin-bottom: 0.4rem;
+    font-size: 0.95rem;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 2rem 0 0;
+    font-family: 'Cinzel', serif;
+    font-size: 0.56rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    opacity: 0.5;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="back" href="/">← Back to 11th Hour</a>
+
+  <p class="site-name">11th Hour</p>
+  <h1>Our Policies</h1>
+  <p class="last-updated">Last updated: February 2026</p>
+
+  <!-- 1. CONTACT -->
+  <div class="policy-section" id="contact">
+    <h2>Contact Us</h2>
+    <p>11th Hour is an independent digital product. If you have any questions, concerns, or need support regarding a payment, please reach out directly.</p>
+    <div class="contact-block">
+      <p><strong>Email:</strong> <a href="mailto:11thhour.space@gmail.com">11thhour.space@gmail.com</a></p>
+      <p><strong>Website:</strong> <a href="https://www.11thhour.space">www.11thhour.space</a></p>
+      <p><strong>Response time:</strong> Within 48 hours</p>
+    </div>
+    <p style="margin-top:1rem;">For payment-related issues, please include your transaction ID and the amount in your message.</p>
+  </div>
+
+  <!-- 2. PRICING -->
+  <div class="policy-section" id="pricing">
+    <h2>Pricing Details</h2>
+    <p>11th Hour is free to use. There are no mandatory charges, no subscriptions, and no paywalled content.</p>
+    <p>Every letter on this site is available to everyone at no cost.</p>
+    <p>We offer an optional voluntary offering for those who feel the product has given them something of value. These are one-time, voluntary amounts:</p>
+    <div class="contact-block">
+      <p>₹11 — a small acknowledgement</p>
+      <p>₹51 — a meaningful offering</p>
+      <p>₹101 — a generous offering</p>
+    </div>
+    <p style="margin-top:1rem;">These are donations, not payments for a service. You receive the same experience whether you offer or not.</p>
+  </div>
+
+  <!-- 3. SHIPPING -->
+  <div class="policy-section" id="shipping">
+    <h2>Shipping Policy</h2>
+    <p>11th Hour is a fully digital product. There are no physical goods, no deliveries, and no shipping of any kind.</p>
+    <p>All offerings made on this platform are voluntary digital donations. Nothing is shipped. Nothing is dispatched. There is nothing to deliver.</p>
+    <p>Access to the product is immediate and entirely browser-based. No downloads, no accounts, no waiting.</p>
+  </div>
+
+  <!-- 4. CANCELLATION & REFUNDS -->
+  <div class="policy-section" id="refunds">
+    <h2>Cancellation &amp; Refunds</h2>
+    <p>All offerings made on 11th Hour are voluntary donations. Because there is no product being purchased in exchange, there is no cancellation flow.</p>
+    <p>However, if you made an offering by mistake, or if a technical error caused a duplicate charge, we will refund you in full. No questions asked.</p>
+    <p>To request a refund, email us at <a href="mailto:11thhour.space@gmail.com">11thhour.space@gmail.com</a> within 7 days of the transaction with your transaction ID. Refunds are processed within 5–7 business days depending on your bank.</p>
+    <p>We do not offer partial refunds. If you are eligible, the full amount will be returned.</p>
+  </div>
+
+  <!-- 5. PRIVACY POLICY -->
+  <div class="policy-section" id="privacy">
+    <h2>Privacy Policy</h2>
+    <p>We take your privacy seriously. Here is exactly what we collect and what we do with it.</p>
+    <p><strong>What we collect:</strong> When you use 11th Hour, we store only the following — the emotional state you selected, the letter ID shown to you (to prevent repeats), and if you make an offering, the transaction amount. We do not collect your name from the input field — it is used only to personalise your letter and is never stored.</p>
+    <p><strong>What we do not collect:</strong> We do not collect your email, phone number, location, device ID, or any identifying information unless you voluntarily provide it (for example, when contacting us for a refund).</p>
+    <p><strong>Cookies and storage:</strong> We use browser localStorage only to track which letters you have already seen, so we do not repeat them. This data lives only on your device and is never sent to our servers.</p>
+    <p><strong>Third parties:</strong> We use Supabase for anonymous session data and Razorpay for payment processing. Razorpay's privacy policy applies to all payment transactions. We do not sell, share, or rent any data to third parties for marketing purposes.</p>
+    <p><strong>Data retention:</strong> Anonymous session data is retained for analytics purposes. If you contact us via email, your email address is retained only for as long as needed to resolve your query.</p>
+    <p>Questions about privacy? Email <a href="mailto:11thhour.space@gmail.com">11thhour.space@gmail.com</a>.</p>
+  </div>
+
+  <!-- 6. TERMS & CONDITIONS -->
+  <div class="policy-section" id="terms">
+    <h2>Terms &amp; Conditions</h2>
+    <p>By using 11th Hour, you agree to the following:</p>
+    <p><strong>Nature of the service:</strong> 11th Hour provides written letters intended for emotional reflection. These letters are not professional psychological advice, therapy, or counselling. They are creative, reflective content. If you are experiencing a mental health crisis, please seek professional support.</p>
+    <p><strong>No guarantees:</strong> We do not guarantee that any letter will resonate with your specific situation. Letters are drawn from a curated library and matched to emotional states — they are not personalised responses to individual circumstances.</p>
+    <p><strong>Voluntary offerings:</strong> Any payment made on this platform is a voluntary donation. You are not purchasing a product or service. No refunds are guaranteed except in cases of technical error or duplicate charge as described in our Refunds Policy.</p>
+    <p><strong>Intellectual property:</strong> All letters, copy, and content on this site are original and owned by 11th Hour. You may share what you receive, but you may not reproduce, republish, or commercialise any content without written permission.</p>
+    <p><strong>Availability:</strong> We make reasonable efforts to keep this service available, but we do not guarantee uninterrupted access. We are not liable for any loss caused by downtime or technical issues.</p>
+    <p><strong>Changes:</strong> We may update these terms at any time. Continued use of the site after changes constitutes acceptance of the updated terms.</p>
+    <p>Questions? Email <a href="mailto:11thhour.space@gmail.com">11thhour.space@gmail.com</a>.</p>
+  </div>
+
+  <footer>11th Hour &nbsp;·&nbsp; A quiet place on the internet</footer>
+
+</div>
+</body>
+</html>
