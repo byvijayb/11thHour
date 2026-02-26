@@ -1,0 +1,1751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>11th Hour — A letter written for you</title>
+<meta name="description" content="Type your name. Hold your question. Receive a letter. A quiet place on the internet.">
+
+<!-- Open Graph — WhatsApp, Facebook, LinkedIn -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.11thhour.space">
+<meta property="og:title" content="11th Hour — A letter written for you">
+<meta property="og:description" content="You didn't find this by accident. Type your name. Hold your question. Receive a letter.">
+<meta property="og:image" content="https://www.11thhour.space/preview.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<!-- Twitter / X card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://www.11thhour.space">
+<meta name="twitter:title" content="11th Hour — A letter written for you">
+<meta name="twitter:description" content="You didn't find this by accident. Type your name. Hold your question. Receive a letter.">
+<meta name="twitter:image" content="https://www.11thhour.space/preview.jpg">
+
+<!-- Mobile browser chrome color -->
+<meta name="theme-color" content="#07070a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Cinzel:wght@400;500&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+:root {
+  --bg: #07070a;
+  --gold: #c9a84c;
+  --gold-dim: #6b5828;
+  --text: #e8e0d0;
+  --text-dim: #7a7060;
+  --white: #f5f0e8;
+  --paper: #f7f2e8;
+  --ink: #1a1510;
+  --ink-mid: #3d3428;
+  --ink-light: #6b5e48;
+  --crimson: #630d0d;
+  --crimson-bright: #8b1a1a;
+
+  --mood-orb: rgba(201,168,76,0.15);
+  --mood-accent: #c9a84c;
+  --mood-accent-dim: #6b5828;
+  --mood-star: 201,168,76;
+}
+
+html { height: 100%; background: var(--bg); }
+body {
+  min-height: 100dvh; background: var(--bg);
+  color: var(--text); font-family: 'Cormorant Garamond', Georgia, serif;
+  overflow: hidden;
+}
+
+#cosmos { position: fixed; inset: 0; z-index: 0; }
+
+.screen {
+  position: fixed; inset: 0; z-index: 10;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 2rem 1.5rem;
+  opacity: 0; pointer-events: none;
+  transition: opacity 1s ease;
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
+}
+.screen.active { opacity: 1; pointer-events: all; }
+
+/* ══════════════════════════════
+   SHARED BUTTON — ALL CRIMSON
+══════════════════════════════ */
+.btn-ritual {
+  background: var(--crimson);
+  border: none;
+  color: #f5e6e6;
+  font-family: 'Cinzel', serif;
+  font-size: 0.62rem; letter-spacing: 0.4em; text-transform: uppercase;
+  padding: 1rem 2.4rem; cursor: pointer;
+  position: relative; overflow: hidden;
+  transition: background 0.3s;
+  -webkit-appearance: none; border-radius: 0;
+  user-select: none; -webkit-user-select: none;
+}
+.btn-ritual:active { background: var(--crimson-bright); }
+
+.btn-ghost {
+  background: transparent; border: none;
+  color: var(--mood-accent);
+  font-family: 'Cinzel', serif;
+  font-size: 0.62rem; letter-spacing: 0.45em; text-transform: uppercase;
+  cursor: pointer; padding: 1.2rem 1.6rem;
+  transition: color 0.3s, opacity 0.3s; display: block;
+  -webkit-appearance: none; border-radius: 0;
+  opacity: 0.85;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 48px; /* iOS minimum tap target */
+}
+.btn-ghost:active { opacity: 1; color: var(--mood-accent); }
+.btn-ghost:hover  { opacity: 1; color: var(--mood-accent); }
+
+/* ══════════════════════════
+   SCREEN 1 — LANDING
+══════════════════════════ */
+#screen-entry { text-align: center; }
+.entry-headline {
+  font-size: clamp(2.4rem, 9vw, 3.8rem); font-weight: 300; font-style: italic;
+  line-height: 1.2; color: var(--white);
+  animation: riseIn 2.2s ease 1.0s both;
+}
+.entry-headline em { font-style: normal; color: var(--mood-accent); display: block; }
+.entry-sub {
+  margin-top: 1rem; font-size: clamp(0.95rem, 3.4vw, 1.15rem);
+  font-weight: 300; font-style: italic; color: var(--text-dim);
+  line-height: 1.65; max-width: 290px;
+  animation: riseIn 2s ease 1.5s both;
+}
+.orb-wrap {
+  position: relative; width: 160px; height: 160px;
+  margin: 2.2rem auto; animation: riseIn 2s ease 1.8s both;
+}
+
+/* Journey line — appears first, sets context before headline */
+.entry-journey {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.5rem, 1.8vw, 0.62rem);
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--mood-accent-dim);
+  margin-bottom: 1.6rem;
+  animation: riseIn 2s ease 0.3s both;
+  line-height: 2;
+}
+.orb-ring {
+  position: absolute; border-radius: 50%;
+  border: 1px solid rgba(var(--mood-star), 0.2);
+  animation: orbBreath 5s ease-in-out infinite;
+}
+.orb-ring:nth-child(1) { inset: 0; }
+.orb-ring:nth-child(2) { inset: 22px; border-color: rgba(var(--mood-star),0.13); animation-delay: 0.6s; }
+.orb-ring:nth-child(3) { inset: 44px; border-color: rgba(var(--mood-star),0.08); animation-delay: 1.2s; }
+.orb-core {
+  position: absolute; inset: 58px; border-radius: 50%;
+  background: radial-gradient(circle at 38% 33%, var(--mood-orb), transparent 65%);
+  animation: orbBreath 5s ease-in-out infinite 0.5s;
+}
+@keyframes orbBreath {
+  0%,100% { transform: scale(0.90); opacity: 0.5; }
+  50% { transform: scale(1.10); opacity: 1; }
+}
+
+/* Sound intimation — ripple pulse when 432Hz starts */
+@keyframes soundRipple {
+  0%   { transform: scale(1); opacity: 0.7; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+.orb-wrap.sound-ripple .orb-ring:nth-child(1) {
+  animation: soundRipple 1.4s ease-out forwards, orbBreath 5s ease-in-out infinite 1.6s;
+}
+.orb-wrap.sound-ripple .orb-ring:nth-child(2) {
+  animation: soundRipple 1.4s ease-out 0.2s forwards, orbBreath 5s ease-in-out infinite 1.8s;
+}
+.orb-wrap.sound-ripple .orb-ring:nth-child(3) {
+  animation: soundRipple 1.4s ease-out 0.4s forwards, orbBreath 5s ease-in-out infinite 2.0s;
+}
+
+/* Floating music note */
+.sound-note {
+  position: absolute;
+  font-size: 0.75rem;
+  color: var(--mood-accent);
+  pointer-events: none;
+  opacity: 0;
+  animation: noteFloat 2.2s ease-out forwards;
+}
+@keyframes noteFloat {
+  0%   { opacity: 0; transform: translateY(0) scale(0.8); }
+  20%  { opacity: 0.8; }
+  100% { opacity: 0; transform: translateY(-52px) scale(1); }
+}
+
+/* Blinking cursor on name field — signals "tap here" */
+.field-cursor {
+  position: absolute;
+  left: 50%; transform: translateX(-50%);
+  bottom: 0.8rem;
+  width: 1.5px; height: 1.4rem;
+  background: var(--mood-accent);
+  opacity: 0;
+  animation: cursorBlink 1.1s ease-in-out 2.2s 6; /* blinks 6x then stops */
+  pointer-events: none;
+}
+@keyframes cursorBlink {
+  0%,100% { opacity: 0; }
+  50% { opacity: 0.7; }
+}
+/* Hide cursor once user taps field */
+#name-input:focus ~ .field-cursor,
+#name-input:not(:placeholder-shown) ~ .field-cursor { display: none; }
+
+/* Demo ring — CSS animation showing the fill once on arrival */
+.hc-demo { pointer-events: none; }
+.hc-demo-ring {
+  fill: none;
+  stroke: var(--crimson);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-dasharray: 327;
+  stroke-dashoffset: 327;
+  opacity: 0;
+  animation: demoFill 2.2s cubic-bezier(0.4,0,0.6,1) 1.2s 1 forwards;
+}
+@keyframes demoFill {
+  0%   { stroke-dashoffset: 327; opacity: 0; }
+  8%   { opacity: 0.5; }
+  70%  { stroke-dashoffset: 0; opacity: 0.5; }
+  85%  { stroke-dashoffset: 0; opacity: 0.3; }
+  100% { stroke-dashoffset: 327; opacity: 0; }
+}
+.name-field-wrap { position: relative; animation: riseIn 1.8s ease 1.6s both; margin-top: 0; }
+#name-continue {
+  margin-top: 1.6rem;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none;
+}
+#name-continue.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+#name-input {
+  background: transparent; border: none;
+  border-bottom: 1px solid var(--mood-accent-dim); color: var(--white);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 7vw, 3rem); font-weight: 300;
+  text-align: center; width: min(80vw, 320px);
+  padding: 0.4rem 0 0.6rem; outline: none;
+  letter-spacing: 0.08em; transition: border-color 0.4s;
+  caret-color: var(--mood-accent); border-radius: 0; -webkit-appearance: none;
+}
+#name-input::placeholder { color: rgba(138,128,112,0.35); font-style: italic; }
+#name-input:focus { border-color: var(--mood-accent); }
+.field-line {
+  position: absolute; bottom: 0; left: 0; height: 1px; width: 0;
+  background: linear-gradient(to right, transparent, var(--mood-accent), transparent);
+  transition: width 0.5s ease;
+}
+#name-input:focus ~ .field-line { width: 100%; }
+
+/* ══════════════════════════
+   SCREEN 3 — HOLD / LONG PRESS
+══════════════════════════ */
+#screen-hold { text-align: center; }
+.hold-main {
+  font-size: clamp(1.8rem, 7vw, 3rem); font-weight: 300; font-style: italic;
+  color: var(--white); line-height: 1.3; animation: riseIn 1.5s ease 0.3s both;
+}
+.hold-sub {
+  margin-top: 1rem; font-size: clamp(0.95rem, 3.2vw, 1.15rem);
+  color: var(--text-dim); font-style: italic; letter-spacing: 0.05em;
+  animation: riseIn 1.5s ease 0.5s both;
+}
+
+/* ── LONG PRESS AREA ── */
+.longpress-wrap {
+  margin: 2rem auto 0;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 1.2rem;
+  animation: riseIn 1.5s ease 0.8s both;
+}
+
+.longpress-hint {
+  font-family: 'Cinzel', serif; font-size: 0.55rem;
+  letter-spacing: 0.4em; text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* The circle button */
+.hold-circle {
+  position: relative; width: 120px; height: 120px;
+  cursor: pointer; user-select: none; -webkit-user-select: none;
+  touch-action: none;
+}
+
+/* Background ring */
+.hc-bg {
+  position: absolute; inset: 0; border-radius: 50%;
+  border: 1.5px solid rgba(var(--mood-star), 0.2);
+}
+
+/* SVG progress ring */
+.hc-svg {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  transform: rotate(-90deg);
+}
+.hc-track {
+  fill: none; stroke: rgba(var(--mood-star), 0.08);
+  stroke-width: 2;
+}
+.hc-progress {
+  fill: none; stroke: var(--crimson);
+  stroke-width: 2.5; stroke-linecap: round;
+  stroke-dasharray: 327; /* circumference of r=52 */
+  stroke-dashoffset: 327;
+  transition: stroke-dashoffset 0.05s linear;
+}
+
+/* Inner glow */
+.hc-inner {
+  position: absolute; inset: 14px; border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, rgba(var(--mood-star), 0.12), transparent 70%);
+  border: 1px solid rgba(var(--mood-star), 0.12);
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.3s;
+}
+.hold-circle.pressing .hc-inner {
+  background: radial-gradient(circle at 40% 35%, rgba(99,13,13,0.3), transparent 70%);
+}
+
+/* Pulse rings that fire on complete */
+.hc-pulse {
+  position: absolute; inset: -10px; border-radius: 50%;
+  border: 1px solid var(--crimson); opacity: 0;
+  pointer-events: none;
+}
+.hc-pulse.fire {
+  animation: pulseRing 0.8s ease-out forwards;
+}
+@keyframes pulseRing {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* Center symbol */
+.hc-symbol {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: 1.1rem; color: rgba(var(--mood-star), 0.7);
+  transition: color 0.3s;
+  pointer-events: none;
+}
+.hold-circle.pressing .hc-symbol { color: var(--crimson); }
+
+/* ══════════════════════════
+   SCREEN 4 — LETTER
+══════════════════════════ */
+#screen-letter, #screen-letter2 {
+  justify-content: flex-start;
+  padding: 2rem 1.2rem 4rem; overflow-y: auto;
+}
+
+.letter-wrap {
+  width: 100%; max-width: 420px; margin: 0 auto;
+  animation: letterUnfold 1.2s cubic-bezier(0.22,1,0.36,1) 0.3s both;
+  transform-origin: top center;
+}
+@keyframes letterUnfold {
+  from { opacity: 0; transform: scaleY(0.88) translateY(-16px); }
+  to { opacity: 1; transform: scaleY(1) translateY(0); }
+}
+
+.letter-edge-top {
+  height: 5px;
+  background: linear-gradient(to bottom, rgba(180,160,120,0.25), transparent);
+}
+.letter-edge-bottom {
+  height: 5px;
+  background: linear-gradient(to top, rgba(180,160,120,0.25), transparent);
+}
+
+.letter-paper {
+  background: var(--paper); padding: 2.2rem 1.8rem 2.6rem;
+  position: relative;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.25), 0 8px 24px rgba(0,0,0,0.35), 0 20px 60px rgba(0,0,0,0.45);
+}
+.letter-paper::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background-image: repeating-linear-gradient(
+    0deg, transparent, transparent 27px,
+    rgba(26,21,16,0.035) 27px, rgba(26,21,16,0.035) 28px
+  );
+}
+
+/* Letter parts — all start invisible, JS adds class to fade each in */
+.letter-date {
+  font-family: 'Caveat', cursive; font-size: 1.0rem; font-weight: 500;
+  color: var(--ink-light); text-align: right; margin-bottom: 1.4rem;
+  opacity: 0; transition: opacity 0.9s ease;
+}
+.letter-salutation {
+  font-family: 'Caveat', cursive; font-size: 1.55rem; font-weight: 500;
+  color: var(--ink); margin-bottom: 1.3rem; line-height: 1.2;
+  opacity: 0; transition: opacity 0.9s ease;
+}
+.letter-para {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.08rem, 3.8vw, 1.22rem);
+  font-weight: 400;
+  color: var(--ink-mid); line-height: 1.75; letter-spacing: 0.015em;
+  margin-bottom: 1.0rem;
+  opacity: 0; transition: opacity 1.1s ease;
+}
+.letter-para:last-of-type { margin-bottom: 0; }
+.letter-para em { font-style: italic; color: var(--ink); font-weight: 500; }
+
+/* P4 — The uncomfortable truth */
+.letter-truth {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.02rem, 3.6vw, 1.15rem);
+  font-weight: 400; font-style: italic;
+  color: var(--ink); line-height: 1.72;
+  margin-top: 1.2rem; padding-left: 0.9rem;
+  border-left: 2px solid rgba(99,13,13,0.28);
+  opacity: 0; transition: opacity 1.1s ease;
+}
+.letter-truth.visible { opacity: 1; }
+
+.letter-closing {
+  margin-top: 2rem; font-family: 'Caveat', cursive;
+  font-size: 1.15rem; font-weight: 500;
+  color: var(--ink-light); font-style: italic; line-height: 1.5;
+  opacity: 0; transition: opacity 0.9s ease;
+}
+.letter-signature {
+  margin-top: 0.5rem; font-family: 'Caveat', cursive;
+  font-size: 1.75rem; font-weight: 600; color: var(--ink);
+  opacity: 0; transition: opacity 0.9s ease;
+}
+.letter-seal {
+  width: 38px; height: 38px; margin-top: 1rem;
+  opacity: 0; transition: opacity 0.9s ease;
+}
+
+/* Visible state */
+.letter-date.visible, .letter-salutation.visible,
+.letter-para.visible, .letter-closing.visible,
+.letter-signature.visible, .letter-seal.visible { opacity: 1; }
+
+/* ── P.S. + GIFT ── */
+.ps-divider {
+  border: none; border-top: 1px solid rgba(26,21,16,0.12);
+  margin: 1.8rem 0 1.4rem;
+  opacity: 0; transition: opacity 0.9s ease;
+}
+.ps-divider.visible { opacity: 1; }
+
+.ps-text {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(1.05rem, 3.8vw, 1.2rem);
+  font-weight: 500;
+  color: var(--ink-light); line-height: 1.7; font-style: italic;
+  opacity: 0; transition: opacity 0.9s ease;
+}
+.ps-text.visible { opacity: 1; }
+.ps-text strong { color: var(--ink-mid); font-style: normal; }
+
+.share-btn {
+  display: block; width: 100%; margin-top: 1.2rem;
+  background: var(--crimson); color: #f5e6e6;
+  font-family: 'Cinzel', serif; font-size: 0.62rem;
+  letter-spacing: 0.35em; text-transform: uppercase;
+  padding: 1.1rem; text-align: center; cursor: pointer;
+  border: none; -webkit-appearance: none; border-radius: 0;
+  opacity: 0; transition: opacity 0.9s ease, background 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 48px;
+}
+.share-btn.visible { opacity: 1; }
+.share-btn:active { background: var(--crimson-bright); transform: scale(0.98); }
+
+.unlock-hint {
+  margin-top: 0.8rem; font-family: 'Caveat', cursive;
+  font-size: 1.0rem; font-weight: 500;
+  color: var(--ink-light);
+  text-align: center; font-style: italic;
+  opacity: 0; transition: opacity 0.9s ease;
+}
+.unlock-hint.visible { opacity: 1; }
+
+.gift-divider {
+  border: none; border-top: 1px dashed rgba(26,21,16,0.1);
+  margin: 1.6rem 0 1.2rem;
+  opacity: 0; transition: opacity 0.9s ease;
+}
+.gift-divider.visible { opacity: 1; }
+
+.gift-label {
+  font-family: 'Cinzel', serif; font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-light); text-align: center; font-style: italic;
+  opacity: 0; transition: opacity 0.9s ease; line-height: 1.6;
+}
+.gift-label.visible { opacity: 1; }
+.gift-sub {
+  display: block; margin-top: 0.25rem;
+  font-size: 0.62rem; letter-spacing: 0.03em; font-style: normal;
+  color: var(--crimson); opacity: 0.8;
+}
+.gift-karma {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.82rem; font-style: italic;
+  color: var(--crimson); text-align: center;
+  margin-top: 0.7rem; letter-spacing: 0.03em;
+  opacity: 0; transition: opacity 0.9s ease;
+}
+.gift-karma.visible { opacity: 1; }
+
+.gift-amounts {
+  display: flex; gap: 0.6rem; justify-content: center; margin-top: 0.9rem;
+  opacity: 0; transition: opacity 0.9s ease;
+}
+.gift-amounts.visible { opacity: 1; }
+
+.gift-btn {
+  background: transparent; border: 1px solid var(--crimson);
+  color: var(--crimson); font-family: 'Cinzel', serif;
+  font-size: 0.62rem; letter-spacing: 0.1em;
+  padding: 0.6rem 0.8rem; cursor: pointer; transition: all 0.3s;
+  -webkit-appearance: none; border-radius: 0; flex: 1; text-align: center;
+}
+.gift-btn:active, .gift-btn:hover { background: var(--crimson); color: var(--paper); }
+
+.bottom-actions {
+  padding: 2rem 0 0; text-align: center;
+  opacity: 0; transition: opacity 0.9s ease;
+}
+.bottom-actions.visible { opacity: 1; }
+
+/* ── TOAST ── */
+.toast {
+  position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
+  background: var(--ink); color: var(--paper);
+  font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.2em;
+  padding: 0.8rem 1.6rem; z-index: 100;
+  opacity: 0; transition: opacity 0.4s; pointer-events: none; white-space: nowrap;
+}
+.toast.show { opacity: 1; }
+
+/* ══════════════════════════════════
+   SCREEN 2 — DOMAIN FORK
+══════════════════════════════════ */
+#screen-domain {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 2rem 1.6rem 3rem; text-align: center;
+  overflow-y: auto;
+}
+
+.domain-greeting {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1rem, 4vw, 1.2rem);
+  font-style: italic; font-weight: 300;
+  color: var(--mood-accent); opacity: 0.7;
+  margin-bottom: 0.4rem;
+  animation: riseIn 0.8s ease both;
+}
+
+.domain-question {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.65rem, 2.5vw, 0.8rem);
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--white); opacity: 0.4;
+  margin-bottom: 1.8rem;
+  animation: riseIn 0.8s ease 0.15s both;
+  transition: opacity 0.4s;
+}
+
+/* Main 3 buttons wrapper */
+.domain-btns {
+  display: flex; flex-direction: column;
+  gap: 0.75rem; width: 100%; max-width: 340px;
+  animation: riseIn 0.8s ease 0.3s both;
+  transition: opacity 0.35s;
+}
+
+/* When a sub-panel is open — main buttons dim but stay tappable */
+.domain-btns.dimmed { opacity: 0.32; }
+
+.domain-btn {
+  background: transparent;
+  border: 1px solid rgba(201,168,76,0.2);
+  padding: 0.9rem 1.3rem;
+  cursor: pointer; text-align: left;
+  transition: border-color 0.25s, background 0.25s, opacity 0.25s;
+  -webkit-appearance: none; border-radius: 0;
+  -webkit-tap-highlight-color: transparent;
+  display: flex; flex-direction: column; gap: 0.18rem;
+}
+.domain-btn:active,
+.domain-btn.selected {
+  border-color: var(--mood-accent);
+  background: rgba(201,168,76,0.07);
+}
+
+.domain-btn-main {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1rem, 3.8vw, 1.12rem);
+  font-weight: 400; color: var(--white);
+  line-height: 1.3;
+}
+.domain-btn-sub {
+  font-family: 'Caveat', cursive;
+  font-size: 0.85rem; font-weight: 500;
+  color: var(--mood-accent);
+  opacity: 0.5; font-style: italic;
+}
+
+.domain-btn-mystery {
+  border-style: dashed;
+  border-color: rgba(201,168,76,0.12);
+}
+.domain-btn-mystery .domain-btn-main {
+  color: var(--mood-accent); opacity: 0.65;
+}
+
+/* Sub-panels — slide in below main buttons */
+.domain-sub-panel {
+  width: 100%; max-width: 340px;
+  display: flex; flex-direction: column;
+  gap: 0.65rem; margin-top: 1.2rem;
+  animation: riseIn 0.5s ease both;
+}
+.domain-sub-panel.hidden { display: none; }
+
+.domain-sub-question {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(0.85rem, 3.2vw, 1rem);
+  font-style: italic; font-weight: 300;
+  color: var(--white); opacity: 0.45;
+  text-align: center; margin-bottom: 0.2rem;
+}
+
+.domain-sub-btn .domain-btn-main {
+  font-size: clamp(0.88rem, 3.3vw, 1.02rem);
+  color: rgba(245,240,232,0.88);
+}
+
+/* ── SITE FOOTER ── */
+.site-footer {
+  position: fixed; bottom: 1rem; left: 0; right: 0;
+  text-align: center; z-index: 50;
+  pointer-events: none;
+}
+.footer-link {
+  font-family: 'Cinzel', serif;
+  font-size: 0.48rem; letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--mood-accent-dim); opacity: 0.35;
+  text-decoration: none;
+  pointer-events: all;
+  transition: opacity 0.3s;
+  -webkit-tap-highlight-color: transparent;
+}
+.footer-link:hover, .footer-link:active { opacity: 0.7; }
+
+
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<canvas id="cosmos"></canvas>
+
+<!-- ══ SCREEN 1: LANDING + NAME (merged) ══ -->
+<section class="screen active" id="screen-entry">
+  <p class="entry-journey">Type your name &nbsp;·&nbsp; Hold your question &nbsp;·&nbsp; Receive a letter</p>
+  <h1 class="entry-headline" id="entry-headline"></h1>
+  <p class="entry-sub" id="entry-sub"></p>
+  <div class="orb-wrap">
+    <div class="orb-ring"></div><div class="orb-ring"></div>
+    <div class="orb-ring"></div><div class="orb-core"></div>
+  </div>
+  <div class="name-field-wrap">
+    <input type="text" id="name-input" placeholder="Your name"
+      autocomplete="off" spellcheck="false" autocorrect="off"
+      autocapitalize="words" maxlength="30" inputmode="text">
+    <div class="field-line"></div>
+    <span class="field-cursor" id="field-cursor"></span>
+  </div>
+  <button class="btn-ghost" id="name-continue" onclick="goToDomain()">
+    Continue →
+  </button>
+</section>
+
+<!-- ══ SCREEN 2: DOMAIN FORK ══ -->
+<section class="screen" id="screen-domain">
+  <p class="domain-greeting" id="domain-greeting"></p>
+  <p class="domain-question" id="domain-question">What is this about?</p>
+
+  <!-- Main 3 buttons — always visible, dim when sub-panel is open -->
+  <div class="domain-btns" id="domain-btns-main">
+    <button class="domain-btn" id="btn-self" onclick="chooseDomain('self')">
+      <span class="domain-btn-main">About me</span>
+      <span class="domain-btn-sub">something I'm carrying</span>
+    </button>
+    <button class="domain-btn" id="btn-rel" onclick="chooseDomain('relationship')">
+      <span class="domain-btn-main">About someone</span>
+      <span class="domain-btn-sub">a person in my life</span>
+    </button>
+    <button class="domain-btn domain-btn-mystery" onclick="chooseDomain('mystery')">
+      <span class="domain-btn-main">I don't know</span>
+      <span class="domain-btn-sub">let the letter find me</span>
+    </button>
+  </div>
+
+  <!-- SELF sub-panel -->
+  <div class="domain-sub-panel hidden" id="domain-sub-self">
+    <p class="domain-sub-question">What does it feel like?</p>
+    <button class="domain-btn domain-sub-btn" onclick="chooseSelfState('crossroads,threshold,permission')">
+      <span class="domain-btn-main">I feel stuck and can't move forward</span>
+    </button>
+    <button class="domain-btn domain-sub-btn" onclick="chooseSelfState('depletion,denial')">
+      <span class="domain-btn-main">I'm exhausted and running on empty</span>
+    </button>
+    <button class="domain-btn domain-sub-btn" onclick="chooseSelfState('fog,shedding')">
+      <span class="domain-btn-main">I feel lost — I don't know who I am right now</span>
+    </button>
+    <button class="domain-btn domain-sub-btn" onclick="chooseSelfState('threshold,imposter,ascent')">
+      <span class="domain-btn-main">I'm scared of what comes next</span>
+    </button>
+    <button class="domain-btn domain-sub-btn" onclick="chooseSelfState('ghost,shedding,holding_on')">
+      <span class="domain-btn-main">I can't stop carrying something from the past</span>
+    </button>
+  </div>
+
+  <!-- RELATIONSHIP sub-panel -->
+  <div class="domain-sub-panel hidden" id="domain-sub-rel">
+    <p class="domain-sub-question">What does it feel like?</p>
+    <button class="domain-btn domain-sub-btn" onclick="chooseRelState('waiting')">
+      <span class="domain-btn-main">I'm waiting for them to decide</span>
+    </button>
+    <button class="domain-btn domain-sub-btn" onclick="chooseRelState('holding_on')">
+      <span class="domain-btn-main">I can't let go</span>
+    </button>
+    <button class="domain-btn domain-sub-btn" onclick="chooseRelState('distance')">
+      <span class="domain-btn-main">Something has shifted between us</span>
+    </button>
+    <button class="domain-btn domain-sub-btn" onclick="chooseRelState('unsaid')">
+      <span class="domain-btn-main">There's something unsaid between us</span>
+    </button>
+  </div>
+
+</section>
+
+<!-- ══ SCREEN 3: HOLD ══ -->
+<section class="screen" id="screen-hold">
+  <p class="hold-main" id="hold-main"></p>
+  <p class="hold-sub" id="hold-sub"></p>
+
+  <div class="longpress-wrap">
+    <div class="hold-circle" id="holdCircle">
+      <div class="hc-bg"></div>
+      <!-- Demo ring — animates once to show user what to do -->
+      <svg class="hc-svg hc-demo" id="hcDemo" viewBox="0 0 120 120">
+        <circle class="hc-demo-ring" cx="60" cy="60" r="52"/>
+      </svg>
+      <svg class="hc-svg" viewBox="0 0 120 120">
+        <circle class="hc-track" cx="60" cy="60" r="52"/>
+        <circle class="hc-progress" id="hcProgress" cx="60" cy="60" r="52"/>
+      </svg>
+      <div class="hc-pulse" id="hcPulse"></div>
+      <div class="hc-inner">
+        <span class="hc-symbol">✦</span>
+      </div>
+    </div>
+    <p class="longpress-hint">Hold to receive</p>
+  </div>
+</section>
+
+<!-- ══ SCREEN 4: LETTER ══ -->
+<section class="screen" id="screen-letter">
+  <div class="letter-wrap">
+    <div class="letter-edge-top"></div>
+    <div class="letter-paper">
+      <p class="letter-date" id="letter-date"></p>
+      <p class="letter-salutation" id="letter-salutation"></p>
+      <p class="letter-para" id="letter-p1"></p>
+      <p class="letter-para" id="letter-p2"></p>
+      <p class="letter-para" id="letter-p3"></p>
+      <p class="letter-truth" id="letter-p4"></p>
+      <div class="letter-closing" id="letter-closing">
+        With all that you are,<br>
+        <span class="letter-signature" id="letter-sig">The Universe</span>
+      </div>
+      <svg class="letter-seal" id="letter-seal" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="18" stroke="#c9a84c" stroke-width="0.8" opacity="0.4"/>
+        <circle cx="20" cy="20" r="13" stroke="#c9a84c" stroke-width="0.5" opacity="0.3"/>
+        <path d="M20 8L21.8 14.5L28.5 14.5L23.1 18.5L24.9 25L20 21L15.1 25L16.9 18.5L11.5 14.5L18.2 14.5Z"
+          stroke="#c9a84c" stroke-width="0.7" fill="none" opacity="0.5"/>
+      </svg>
+
+      <hr class="ps-divider" id="ps-div">
+      <p class="ps-text" id="ps-text">
+        <strong>P.S.</strong> One more letter is waiting for you —<br>share this with someone who needs it to unlock it.
+      </p>
+      <button class="share-btn" id="share-btn" onclick="handleShare()">
+        Share &amp; unlock the next letter
+      </button>
+      <p class="unlock-hint" id="unlock-hint">or return tomorrow for your next letter</p>
+
+      <hr class="gift-divider" id="gift-div">
+      <p class="gift-label" id="gift-label">The universe moves in circles.</p>
+      <div class="gift-amounts" id="gift-amounts">
+        <button class="gift-btn" onclick="handleGift(11)">₹11</button>
+        <button class="gift-btn" onclick="handleGift(51)">₹51</button>
+        <button class="gift-btn" onclick="handleGift(101)">₹101</button>
+      </div>
+      <p class="gift-karma" id="gift-karma">What you offer here will be returned.</p>
+    </div>
+    <div class="letter-edge-bottom"></div>
+    <div class="bottom-actions" id="bottom-actions">
+      <button class="btn-ghost" onclick="goAgain()">Begin again</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SCREEN 5: SECOND LETTER ══ -->
+<section class="screen" id="screen-letter2">
+  <div class="letter-wrap">
+    <div class="letter-edge-top"></div>
+    <div class="letter-paper">
+      <p class="letter-date" id="letter2-date"></p>
+      <p class="letter-salutation" id="letter2-salutation"></p>
+      <p class="letter-para" id="letter2-p1"></p>
+      <p class="letter-para" id="letter2-p2"></p>
+      <p class="letter-para" id="letter2-p3"></p>
+      <p class="letter-truth" id="letter2-p4"></p>
+      <div class="letter-closing" id="letter2-closing">
+        With all that you are,<br>
+        <span class="letter-signature" id="letter2-sig">The Universe</span>
+      </div>
+      <svg class="letter-seal" id="letter2-seal" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="18" stroke="#c9a84c" stroke-width="0.8" opacity="0.4"/>
+        <circle cx="20" cy="20" r="13" stroke="#c9a84c" stroke-width="0.5" opacity="0.3"/>
+        <path d="M20 8L21.8 14.5L28.5 14.5L23.1 18.5L24.9 25L20 21L15.1 25L16.9 18.5L11.5 14.5L18.2 14.5Z"
+          stroke="#c9a84c" stroke-width="0.7" fill="none" opacity="0.5"/>
+      </svg>
+      <hr class="ps-divider" id="ps2-div">
+      <p class="gift-label" id="gift2-label">If this space has given you something — offer what feels right.</p>
+      <div class="gift-amounts" id="gift2-amounts">
+        <button class="gift-btn" onclick="handleGift(11)">₹11</button>
+        <button class="gift-btn" onclick="handleGift(51)">₹51</button>
+        <button class="gift-btn" onclick="handleGift(101)">₹101</button>
+      </div>
+    </div>
+    <div class="letter-edge-bottom"></div>
+    <div class="bottom-actions" id="bottom-actions2">
+      <button class="btn-ghost" onclick="goAgain()">Begin again</button>
+    </div>
+  </div>
+</section>
+
+<div class="site-footer">
+  <a href="/policies" class="footer-link">Policies &amp; Contact</a>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ═══════════════════════════════════
+   SUPABASE — 11thHour backend
+═══════════════════════════════════ */
+const SB_URL = 'https://upciiciqzznhpxfcuomr.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVwY2lpY2lxenpuaHB4ZmN1b21yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE1MjQyOTksImV4cCI6MjA4NzEwMDI5OX0.l1lhTknqGdFWCVoWQ4G4NggERxwqpRAwNpTdVuqixNU';
+const SB_HEADERS = { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}`, 'Content-Type': 'application/json' };
+
+// Unique token for this session — used for share tracking
+const SESSION_TOKEN = crypto.randomUUID();
+
+// ── SEEN LETTERS — persists across sessions via localStorage ──────
+// Tracks all letter IDs shown so far. Resets when all seen.
+function getSeenIds() {
+  try { return JSON.parse(localStorage.getItem('11h_seen') || '[]'); }
+  catch(e) { return []; }
+}
+function addSeenId(id) {
+  try {
+    const seen = getSeenIds();
+    if (!seen.includes(id)) seen.push(id);
+    localStorage.setItem('11h_seen', JSON.stringify(seen));
+  } catch(e) {}
+}
+function resetSeenIds() {
+  try { localStorage.removeItem('11h_seen'); } catch(e) {}
+}
+
+// Fetch a letter from DB — supports domain + optional mood_tag filter
+async function fetchLetter(alsoExclude = null, domain = 'self', moodTag = null) {
+  try {
+    let url = `${SB_URL}/rest/v1/letters?select=id,p1,p2,p3,p4,mood_tag,domain`;
+
+    if (domain === 'mystery') {
+      // mystery = full pool, no domain filter
+    } else {
+      url += `&domain=eq.${domain}`;
+    }
+
+    // For self domain with multi-tag group — pick one tag randomly
+    let resolvedTag = moodTag;
+    if (domain === 'self' && currentMoodTags && currentMoodTags.length > 1) {
+      resolvedTag = currentMoodTags[Math.floor(Math.random() * currentMoodTags.length)];
+    }
+
+    if (resolvedTag) {
+      url += `&mood_tag=eq.${resolvedTag}`;
+    } else if (domain === 'self') {
+      url += `&active=eq.true`;
+    }
+
+    const res = await fetch(url, { headers: SB_HEADERS });
+    const rows = await res.json();
+    if (!Array.isArray(rows) || !rows.length) return null;
+
+    let seen = getSeenIds();
+    const exclude = alsoExclude ? [...seen, alsoExclude] : seen;
+    let pool = rows.filter(r => !exclude.includes(r.id));
+
+    if (!pool.length) {
+      resetSeenIds();
+      pool = alsoExclude ? rows.filter(r => r.id !== alsoExclude) : rows;
+    }
+
+    const letter = pool[Math.floor(Math.random() * pool.length)];
+    addSeenId(letter.id);
+    return letter;
+  } catch(e) { return null; }
+}
+
+// Record that this session shared (unlocks second letter)
+async function trackShare() {
+  try {
+    await fetch(`${SB_URL}/rest/v1/shares`, {
+      method: 'POST',
+      headers: SB_HEADERS,
+      body: JSON.stringify({ session_token: SESSION_TOKEN, unlocked: true })
+    });
+  } catch(e) {}
+}
+
+// Record a gift offering
+async function trackGift(amount) {
+  try {
+    await fetch(`${SB_URL}/rest/v1/gifts`, {
+      method: 'POST',
+      headers: SB_HEADERS,
+      body: JSON.stringify({ amount, session_token: SESSION_TOKEN })
+    });
+  } catch(e) {}
+}
+
+/* ═══════════════════════════════════
+   MOODS
+═══════════════════════════════════ */
+const MOODS = [
+  {
+    star:'201,168,76', accent:'#c9a84c', accentDim:'#6b5828',
+    orb:'rgba(201,168,76,0.16)',
+    eyebrow:'A quiet place on the internet',
+    headlinePre:"You didn't find this", headlineEm:"by accident.",
+    sub:"When you've thought too much\nand understood too little.",
+    namePre:"Before we begin —\nwhat's your name?",
+    holdMain:"Think of what's troubling you.\nDon't say it out loud.",
+    holdSub:"Hold it in your mind —\nthen press and hold the circle.",
+  },
+  {
+    star:'180,140,200', accent:'#b48cc8', accentDim:'#5e4070',
+    orb:'rgba(180,140,200,0.16)',
+    eyebrow:'The universe has been listening',
+    headlinePre:"Stuck between", headlineEm:"two worlds?",
+    sub:"You don't need more thinking.\nYou need to hear yourself.",
+    namePre:"The universe needs to know\nwho it's writing to.",
+    holdMain:"Think of the thing on your mind.\nSilently. Just feel it.",
+    holdSub:"Now press and hold the circle.\nYour letter is being written.",
+  },
+  {
+    star:'140,190,180', accent:'#8cbeb8', accentDim:'#3d6e6a',
+    orb:'rgba(140,190,180,0.16)',
+    eyebrow:'Something brought you here',
+    headlinePre:"The answer is", headlineEm:"closer than you think.",
+    sub:"The universe has been waiting\nfor you to ask.",
+    namePre:"Tell me your name\nbefore the letter is written.",
+    holdMain:"Think of what's bothering you.\nNo need to say it out loud.",
+    holdSub:"Keep it in your mind.\nThen press and hold the circle.",
+  },
+  {
+    star:'210,160,130', accent:'#d2a082', accentDim:'#7a5040',
+    orb:'rgba(210,160,130,0.16)',
+    eyebrow:'You already know',
+    headlinePre:"Take a breath.", headlineEm:"You already know.",
+    sub:"You just need someone\nto say it back to you.",
+    namePre:"What do the people\nwho love you call you?",
+    holdMain:"Think of what's been\nstuck in your head.",
+    holdSub:"Hold it there quietly —\nthen press and hold the circle.",
+  },
+  {
+    star:'160,180,220', accent:'#a0b4dc', accentDim:'#40507a',
+    orb:'rgba(160,180,220,0.16)',
+    eyebrow:'For the searching soul',
+    headlinePre:"Something in you", headlineEm:"already knows.",
+    sub:"The stillness you need\nis one breath away.",
+    namePre:"Before the universe speaks —\nwhat is your name?",
+    holdMain:"Think of the question\nyou haven't said out loud.",
+    holdSub:"Keep it in your mind.\nThen press and hold the circle.",
+  }
+];
+
+/* ═══════════════════════════════════
+   LETTERS
+═══════════════════════════════════ */
+const LETTERS = [
+  {
+    p1: "You've been turning this over and over, looking for the answer that feels safe enough to choose.",
+    p2: "Here is what I need you to hear: <em>the fear you feel is not a sign you are wrong.</em> It means you are awake to what matters. You are not lost. You are standing at the edge of something real.",
+    p3: "You already know the direction. You've known it longer than you've admitted. Trust the quiet voice — not the loud one.",
+    p4: "Every day you don't decide is still a decision. You are choosing, right now, to stay exactly where you are. That is not neutral. That is costing you something."
+  },
+  {
+    p1: "You came here because the noise got too heavy, and underneath it all, you needed to hear something true.",
+    p2: "So here it is: <em>the path that scares you is scary because it is yours.</em> The paths that belong to others feel easy to walk away from. This one pulls at you. That pull is not worry. That pull is knowing.",
+    p3: "You have got through every hard thing until now. This one will not be the one that breaks you. Walk toward it.",
+    p4: "You've been waiting to feel ready. Ready people don't feel ready — they feel scared and move anyway. You're not waiting for strength. You're using the idea of it as a reason to stay still."
+  },
+  {
+    p1: "You've been thinking your way around this question for longer than you realise.",
+    p2: "Here is the truth: <em>you are not waiting for more information. You are waiting for permission.</em> No one is coming to give it to you. Which means the only thing left is to give it to yourself.",
+    p3: "The answer you keep coming back to? That is not obsession. That is your own knowing trying to get your attention.",
+    p4: "Every day you wait for someone else to say yes is a day you give your life to someone who isn't living it. That is not being careful. That is giving away your power."
+  },
+  {
+    p1: "There are moments when everything feels unsure at once. This is one of yours.",
+    p2: "But being unsure is not the same as being wrong. Sometimes it means you are standing at the edge of something bigger than you can see yet. <em>That is not a problem to fix. That is a new chapter starting.</em>",
+    p3: "Be as gentle with yourself as you would be with someone you love standing exactly where you are.",
+    p4: "You've been waiting to feel sure before you act. But acting is what creates the feeling of being sure. You have it the wrong way round. You've had it the wrong way round for a while."
+  },
+  {
+    p1: "The question you are holding right now exists because part of you is ready to move.",
+    p2: "<em>Not the scared part. The part that has been patient long enough.</em> Listen to that part. It has been waiting a long time to be heard. The fear is loud. But it is not the wisest voice in the room.",
+    p3: "Something is ending. Something else is waiting. You do not have to know which is which to take the next step.",
+    p4: "The version of you that keeps getting ready is not the version that changes your life. At some point, getting ready becomes the way you avoid the thing you are supposed to be doing."
+  },
+  {
+    p1: "I know it feels like everything is riding on this. Like getting it wrong means losing everything.",
+    p2: "But here is what gets forgotten in moments like this: <em>you are stronger than the outcome you are afraid of.</em> Either path leads somewhere real. The question is not which one is safe — it is which one, ten years from now, feels like you.",
+    p3: "Stop asking what could go wrong. Start asking what becomes possible if it goes right.",
+    p4: "The longer you wait for certainty, the less certain you feel. At some point, staying still is just fear with better reasons."
+  },
+  {
+    p1: "The confusion you are feeling is not a flaw in your thinking.",
+    p2: "It is what happens when you are between two versions of yourself — the one you have been, and the one you are becoming. <em>That in-between place feels uncomfortable because it is real.</em> You are not supposed to feel settled here. You are supposed to feel the pull.",
+    p3: "Let go of the version of the story you planned. The one that is actually yours is far more interesting.",
+    p4: "The confusion you keep describing is not confusion. It is a choice to not choose. And not choosing is still a choice — it just lets you avoid the responsibility of having made one."
+  },
+  {
+    p1: "You have been so careful. So thoughtful. So worried about getting this right.",
+    p2: "And that care is not weakness. It is love. You care because it matters to you. <em>But there comes a point where more thinking is just fear dressed up as wisdom.</em> You are past that point.",
+    p3: "You know. You have known for a while. The only thing left is the will to act on what you know.",
+    p4: "You already know what you need to do. All the checking, the asking, the going back and forth — it is not being careful. It is putting off something you have already decided."
+  },
+  {
+    p1: "Sometimes the bravest thing is not a big leap. It is the quiet decision to stop waiting.",
+    p2: "To stop waiting for a certainty that will never fully arrive. To stop waiting for someone to say it is okay. <em>To choose, not because you are fearless, but because you are tired of standing still.</em>",
+    p3: "The world does not reward those who wait until they are ready. It rewards those who move and become ready as they go.",
+    p4: "The time you've spent waiting is gone. But the time ahead is still yours. The only waste is spending more of it the same way."
+  },
+  {
+    p1: "I want to tell you something that no one else has said clearly enough:",
+    p2: "What you are carrying right now is heavier than it looks from the outside. You have been holding it with more strength than you know. <em>You are allowed to put it down. Not forever — just long enough to breathe.</em> The problem will still be there. But you will be clearer.",
+    p3: "Rest is not giving up. Sometimes it is the smartest thing a tired person can do.",
+    p4: "You keep pushing because stopping feels like losing. But you are not losing by resting. You are losing by running on empty and wondering why nothing is working."
+  }
+];
+
+/* ═══════════════════════════════════
+   STARFIELD
+═══════════════════════════════════ */
+const canvas = document.getElementById('cosmos');
+const ctx = canvas.getContext('2d');
+let stars = [], moodStarRGB = '201,168,76';
+
+function resize() {
+  canvas.width = window.innerWidth; canvas.height = window.innerHeight; buildStars();
+}
+function buildStars() {
+  stars = Array.from({length: 160}, () => ({
+    x: Math.random()*canvas.width, y: Math.random()*canvas.height,
+    r: Math.random()*0.75+0.1, a: Math.random()*0.5+0.1,
+    sp: Math.random()*0.003+0.001, ph: Math.random()*Math.PI*2
+  }));
+}
+function drawStars(t) {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  stars.forEach(s => {
+    const a = s.a*(0.5+0.5*Math.sin(t*0.001*s.sp*300+s.ph));
+    ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(${moodStarRGB},${a})`; ctx.fill();
+  });
+  requestAnimationFrame(drawStars);
+}
+window.addEventListener('resize', resize);
+resize(); requestAnimationFrame(drawStars);
+
+/* ═══════════════════════════════════
+   SESSION & MOOD
+═══════════════════════════════════ */
+let mood, usedLetterIdx = -1, userName = '';
+
+function initSession() {
+  const last = parseInt(sessionStorage.getItem('lastMood') ?? '-1');
+  let idx;
+  do { idx = Math.floor(Math.random()*MOODS.length); }
+  while (idx === last && MOODS.length > 1);
+  sessionStorage.setItem('lastMood', idx);
+  mood = MOODS[idx];
+
+  const r = document.documentElement;
+  r.style.setProperty('--mood-accent', mood.accent);
+  r.style.setProperty('--mood-accent-dim', mood.accentDim);
+  r.style.setProperty('--mood-orb', mood.orb);
+  r.style.setProperty('--mood-star', mood.star);
+  moodStarRGB = mood.star;
+
+  document.getElementById('entry-headline').innerHTML =
+    mood.headlinePre + '<br><em>' + mood.headlineEm + '</em>';
+  document.getElementById('entry-sub').innerHTML = mood.sub.replace(/\n/g,'<br>');
+  document.getElementById('hold-main').innerHTML = mood.holdMain.replace(/\n/g,'<br>');
+  document.getElementById('hold-sub').innerHTML = mood.holdSub.replace(/\n/g,'<br>');
+}
+initSession();
+
+/* ═══════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════ */
+function goTo(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  setTimeout(() => document.getElementById(id).classList.add('active'), 60);
+}
+
+// Domain state — set before goToHold
+let currentDomain = 'self';
+let currentMoodTag = null;
+let currentMoodTags = []; // for self multi-tag groups
+
+function goToDomain() {
+  const val = document.getElementById('name-input').value.trim();
+  userName = val || '';
+  stopBinaural();
+
+  // Set greeting
+  const greet = document.getElementById('domain-greeting');
+  if (greet) {
+    greet.textContent = userName ? `${getDisplayName()}.` : 'Before we begin.';
+  }
+
+  resetDomain();
+  goTo('screen-domain');
+}
+
+function chooseDomain(domain) {
+  // Clear any selected state on main buttons
+  document.querySelectorAll('#domain-btns-main .domain-btn')
+    .forEach(b => b.classList.remove('selected'));
+
+  if (domain === 'mystery') {
+    // Mystery — no sub-panel, go straight to hold
+    currentDomain = 'mystery';
+    currentMoodTag = null;
+    currentMoodTags = [];
+    resetSubPanels();
+    document.getElementById('domain-btns-main').classList.remove('dimmed');
+    goToHold();
+    return;
+  }
+
+  // Mark selected button
+  const btnId = domain === 'self' ? 'btn-self' : 'btn-rel';
+  document.getElementById(btnId).classList.add('selected');
+
+  // Dim main buttons — but keep them tappable for switching
+  document.getElementById('domain-btns-main').classList.add('dimmed');
+
+  // Hide both sub-panels first
+  resetSubPanels();
+
+  // Show the right sub-panel
+  const panelId = domain === 'self' ? 'domain-sub-self' : 'domain-sub-rel';
+  document.getElementById(panelId).classList.remove('hidden');
+
+  currentDomain = domain;
+
+  // Update the question text to feel like a continuation
+  const q = document.getElementById('domain-question');
+  if (q) q.textContent = 'What does it feel like?';
+}
+
+function resetSubPanels() {
+  document.getElementById('domain-sub-self').classList.add('hidden');
+  document.getElementById('domain-sub-rel').classList.add('hidden');
+}
+
+// Self state — receives comma-separated mood_tags
+function chooseSelfState(tagsStr) {
+  currentDomain = 'self';
+  currentMoodTags = tagsStr.split(',').map(t => t.trim());
+  // Pick one randomly — weighted toward first (most primary)
+  currentMoodTag = currentMoodTags[0];
+  goToHold();
+}
+
+function chooseRelState(moodTag) {
+  currentDomain = 'relationship';
+  currentMoodTag = moodTag;
+  currentMoodTags = [moodTag];
+  goToHold();
+}
+
+function resetDomain() {
+  // Reset main buttons
+  document.getElementById('domain-btns-main').classList.remove('dimmed');
+  document.querySelectorAll('#domain-btns-main .domain-btn')
+    .forEach(b => b.classList.remove('selected'));
+
+  // Reset sub-panels
+  resetSubPanels();
+
+  // Reset question text
+  const q = document.getElementById('domain-question');
+  if (q) q.textContent = 'What is this about?';
+
+  // Reset state
+  currentDomain = 'self';
+  currentMoodTag = null;
+  currentMoodTags = [];
+}
+
+function goToHold() {
+  goTo('screen-hold');
+  setTimeout(startDrone, 900);
+}
+
+function pickLetter(exclude = -1) {
+  let idx;
+  do { idx = Math.floor(Math.random()*LETTERS.length); }
+  while (idx === exclude && LETTERS.length > 1);
+  return { idx, letter: LETTERS[idx] };
+}
+
+function getDisplayName() {
+  return userName.trim() ? userName.split(' ')[0] : 'Seeker';
+}
+
+function fillAndRevealLetter(prefix, letter, isSecond = false) {
+  // Clear any previous visible state — important for repeat sessions
+  ['date','salutation','p1','p2','p3','p4','closing','sig','seal'].forEach(k => {
+    const el = document.getElementById(prefix+k);
+    if (el) el.classList.remove('visible');
+  });
+  if (!isSecond) {
+    ['ps-div','ps-text','share-btn','unlock-hint',
+     'gift-div','gift-label','gift-amounts','gift-karma','bottom-actions'].forEach(k => {
+      const el = document.getElementById(k);
+      if (el) el.classList.remove('visible');
+    });
+  } else {
+    ['ps2-div','gift2-label','gift2-amounts','bottom-actions2'].forEach(k => {
+      const el = document.getElementById(k);
+      if (el) el.classList.remove('visible');
+    });
+  }
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('en-IN',
+    { month: 'long', day: 'numeric', year: 'numeric' });
+
+  const salutation = isSecond
+    ? `Dear ${getDisplayName()}, once more —`
+    : `Dear ${getDisplayName()},`;
+
+  document.getElementById(prefix+'date').textContent = dateStr;
+  document.getElementById(prefix+'salutation').textContent = salutation;
+  document.getElementById(prefix+'p1').innerHTML = letter.p1;
+  document.getElementById(prefix+'p2').innerHTML = letter.p2;
+  document.getElementById(prefix+'p3').innerHTML = letter.p3;
+  document.getElementById(prefix+'p4').innerHTML = letter.p4 || '';
+
+  // Staggered fade-in — p4 arrives last, after a beat of silence post-p3
+  const seq = [
+    { id: prefix+'date',       delay: 200  },
+    { id: prefix+'salutation', delay: 700  },
+    { id: prefix+'p1',         delay: 1300 },
+    { id: prefix+'p2',         delay: 2400 },
+    { id: prefix+'p3',         delay: 3500 },
+    { id: prefix+'p4',         delay: 5000 }, // pause after p3 — lands harder
+    { id: prefix+'closing',    delay: 6200 },
+    { id: prefix+'sig',        delay: 6200 },
+    { id: prefix+'seal',       delay: 6900 },
+  ];
+
+  // PS / actions only for first letter
+  if (!isSecond) {
+    seq.push(
+      { id: 'ps-div',        delay: 7000 },
+      { id: 'ps-text',       delay: 7200 },
+      { id: 'share-btn',     delay: 7400 },
+      { id: 'unlock-hint',   delay: 7600 },
+      { id: 'gift-div',      delay: 7800 },
+      { id: 'gift-label',    delay: 7900 },
+      { id: 'gift-amounts',  delay: 8100 },
+      { id: 'gift-karma',    delay: 8400 },
+      { id: 'bottom-actions',delay: 8600 },
+    );
+  } else {
+    seq.push(
+      { id: 'ps2-div',        delay: 7000 },
+      { id: 'gift2-label',    delay: 7200 },
+      { id: 'gift2-amounts',  delay: 7400 },
+      { id: 'bottom-actions2',delay: 7600 },
+    );
+  }
+
+  // Reset first
+  seq.forEach(({id}) => {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove('visible');
+  });
+
+  // Then stagger — with matched sounds
+  seq.forEach(({id, delay}) => {
+    setTimeout(() => {
+      const el = document.getElementById(id);
+      if (el) el.classList.add('visible');
+
+      // Sound: silence on paragraphs — only two moments get audio
+      if (id === prefix+'p4')   playBreath();  // truth arriving
+      if (id === prefix+'seal') playBreath();
+    }, delay);
+  });
+}
+
+async function goToLetter() {
+  stopDrone();
+  goTo('screen-letter');
+  setTimeout(async () => {
+    document.getElementById('screen-letter').scrollTo(0,0);
+    let letter = await fetchLetter(null, currentDomain, currentMoodTag);
+    if (letter) {
+      usedLetterIdx = letter.id;
+    } else {
+      // Fallback to local letters if DB fails
+      const local = pickLetter();
+      letter = local.letter;
+      usedLetterIdx = local.idx;
+    }
+    fillAndRevealLetter('letter-', letter, false);
+  }, 400);
+  setTimeout(playChime, 800);
+}
+
+function goAgain() {
+  document.getElementById('name-input').value = '';
+  document.getElementById('name-continue').classList.remove('visible');
+  userName = ''; usedLetterIdx = -1;
+  currentDomain = 'self'; currentMoodTag = null; currentMoodTags = [];
+  resetDomain();
+  initSession();
+  goTo('screen-entry');
+  setTimeout(() => {
+    const entry = document.getElementById('screen-entry');
+    if (entry) entry.scrollTo(0,0);
+    window.scrollTo(0,0);
+  }, 100);
+}
+
+/* ═══════════════════════════════════
+   LONG PRESS RITUAL
+═══════════════════════════════════ */
+const HOLD_DURATION = 2000; // 2 seconds
+const CIRCUMFERENCE = 327;  // 2 * π * 52
+
+const holdCircle  = document.getElementById('holdCircle');
+const hcProgress  = document.getElementById('hcProgress');
+const hcPulse     = document.getElementById('hcPulse');
+
+let holdStart = null;
+let holdRAF   = null;
+let holding   = false;
+
+function startHold(e) {
+  e.preventDefault();
+  if (holding) return;
+  holding = true;
+  holdStart = Date.now();
+  holdCircle.classList.add('pressing');
+  // Hide demo ring the moment user touches
+  const demo = document.getElementById('hcDemo');
+  if (demo) demo.style.opacity = '0';
+  tickHold();
+}
+
+function tickHold() {
+  const elapsed = Date.now() - holdStart;
+  const progress = Math.min(elapsed / HOLD_DURATION, 1);
+  const offset = CIRCUMFERENCE * (1 - progress);
+  hcProgress.style.strokeDashoffset = offset;
+
+  if (progress >= 1) {
+    completeHold();
+    return;
+  }
+  holdRAF = requestAnimationFrame(tickHold);
+}
+
+function cancelHold() {
+  if (!holding) return;
+  holding = false;
+  holdCircle.classList.remove('pressing');
+  cancelAnimationFrame(holdRAF);
+  // Reset progress smoothly
+  hcProgress.style.transition = 'stroke-dashoffset 0.4s ease';
+  hcProgress.style.strokeDashoffset = CIRCUMFERENCE;
+  setTimeout(() => { hcProgress.style.transition = ''; }, 450);
+}
+
+function completeHold() {
+  holding = false;
+  holdCircle.classList.remove('pressing');
+  cancelAnimationFrame(holdRAF);
+  playComplete();
+  hcPulse.classList.remove('fire');
+  void hcPulse.offsetWidth;
+  hcPulse.classList.add('fire');
+  setTimeout(() => {
+    hcProgress.style.strokeDashoffset = CIRCUMFERENCE;
+    goToLetter();
+  }, 600);
+}
+
+// Touch events
+holdCircle.addEventListener('touchstart', startHold, { passive: false });
+holdCircle.addEventListener('touchend', cancelHold);
+holdCircle.addEventListener('touchcancel', cancelHold);
+
+// Mouse events (desktop fallback)
+holdCircle.addEventListener('mousedown', startHold);
+holdCircle.addEventListener('mouseup', cancelHold);
+holdCircle.addEventListener('mouseleave', cancelHold);
+
+/* ═══════════════════════════════════
+   SHARE & UNLOCK
+═══════════════════════════════════ */
+let isSharing = false; // prevent letter reveal while share sheet open
+
+function handleShare() {
+  const shareData = {
+    title: '11thHour — A letter written for you',
+    text: 'I found something that felt like the universe speaking. You might need this too.',
+    url: 'https://www.11thhour.space'
+  };
+  if (navigator.share) {
+    isSharing = true;
+    navigator.share(shareData)
+      .then(() => { isSharing = false; trackShare(); revealSecondLetter(); })
+      .catch(() => { isSharing = false; fallbackShare(); });
+  } else {
+    fallbackShare();
+  }
+}
+
+function fallbackShare() {
+  navigator.clipboard.writeText(window.location.href).then(() => {
+    showToast('Link copied — share it with someone who needs it.');
+    trackShare();
+    setTimeout(revealSecondLetter, 1800);
+  }).catch(revealSecondLetter);
+}
+
+async function revealSecondLetter() {
+  goTo('screen-letter2');
+  setTimeout(async () => {
+    document.getElementById('screen-letter2').scrollTo(0,0);
+    // Second letter stays in same domain — keeps the experience coherent
+    let letter = await fetchLetter(
+      typeof usedLetterIdx === 'string' ? usedLetterIdx : null,
+      currentDomain,
+      currentMoodTag
+    );
+    if (!letter) letter = pickLetter(typeof usedLetterIdx === 'number' ? usedLetterIdx : -1).letter;
+    fillAndRevealLetter('letter2-', letter, true);
+  }, 400);
+  setTimeout(playChime, 800);
+}
+
+/* ═══════════════════════════════════
+   GIFT
+═══════════════════════════════════ */
+function handleGift(amount) {
+  trackGift(amount);
+  showToast(`Opening ₹${amount} offering...`);
+  // TODO: add Razorpay link here
+}
+
+/* ═══════════════════════════════════
+   TOAST
+═══════════════════════════════════ */
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+/* ═══════════════════════════════════
+   SOUND ENGINE
+   — Binaural beats on landing (144Hz)
+   — Micro sounds throughout journey
+   All Web Audio API, zero file load
+═══════════════════════════════════ */
+let audioCtx = null;
+let binauralNodes = null;
+let droneNodes = null;
+let soundEnabled = false;
+
+function getAC() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  return audioCtx;
+}
+
+// ── 432Hz WARM TONE (landing) ───────
+// 432Hz is natural tuning — warmer and less clinical than 440Hz
+// Two harmonics (432 + 864) create fullness without oscillation
+function startBinaural() {
+  if (binauralNodes) return;
+  try {
+    const ac = getAC();
+    const masterGain = ac.createGain();
+    const filter = ac.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.value = 600; // keeps it warm, removes clinical edge
+
+    // Root — 432Hz
+    const osc1 = ac.createOscillator();
+    const g1 = ac.createGain();
+    osc1.type = 'sine';
+    osc1.frequency.value = 432;
+    g1.gain.value = 0.07;  // was 0.038
+    osc1.connect(g1); g1.connect(filter);
+
+    // Octave — 216Hz (an octave below, adds body)
+    const osc2 = ac.createOscillator();
+    const g2 = ac.createGain();
+    osc2.type = 'sine';
+    osc2.frequency.value = 216;
+    g2.gain.value = 0.04;  // was 0.022
+    osc2.connect(g2); g2.connect(filter);
+
+    // Very soft high harmonic — 864Hz (one octave above, adds air)
+    const osc3 = ac.createOscillator();
+    const g3 = ac.createGain();
+    osc3.type = 'sine';
+    osc3.frequency.value = 864;
+    g3.gain.value = 0.018;  // was 0.010
+    osc3.connect(g3); g3.connect(filter);
+
+    filter.connect(masterGain);
+    masterGain.connect(ac.destination);
+
+    // Fade in gently over 5s — slower than before
+    masterGain.gain.setValueAtTime(0, ac.currentTime);
+    masterGain.gain.linearRampToValueAtTime(1.0, ac.currentTime + 5);  // was 0.72
+
+    osc1.start(); osc2.start(); osc3.start();
+    binauralNodes = { oscL: osc1, oscR: osc2, pad: osc3, masterGain };
+  } catch(e) {}
+}
+
+function stopBinaural() {
+  if (!binauralNodes) return;
+  try {
+    const ac = getAC();
+    binauralNodes.masterGain.gain.linearRampToValueAtTime(0, ac.currentTime + 1.5);
+    setTimeout(() => {
+      try {
+        binauralNodes.oscL.stop();
+        binauralNodes.oscR.stop();
+        binauralNodes.pad.stop();
+      } catch(e) {}
+      binauralNodes = null;
+    }, 1600);
+  } catch(e) {}
+}
+
+// ── AMBIENT DRONE (hold screen) ─────
+function startDrone() {
+  if (droneNodes) return;
+  try {
+    const ac = getAC();
+    const osc1 = ac.createOscillator();
+    const osc2 = ac.createOscillator();
+    const gain = ac.createGain();
+    const filter = ac.createBiquadFilter();
+    filter.type = 'lowpass'; filter.frequency.value = 280;
+    osc1.type = 'sine'; osc1.frequency.value = 80;
+    osc2.type = 'sine'; osc2.frequency.value = 81.5;
+    osc1.connect(filter); osc2.connect(filter);
+    filter.connect(gain); gain.connect(ac.destination);
+    gain.gain.setValueAtTime(0, ac.currentTime);
+    gain.gain.linearRampToValueAtTime(0.045, ac.currentTime + 2.5);
+    osc1.start(); osc2.start();
+    droneNodes = { osc1, osc2, gain };
+  } catch(e) {}
+}
+
+function stopDrone() {
+  if (!droneNodes) return;
+  try {
+    const ac = getAC();
+    droneNodes.gain.gain.linearRampToValueAtTime(0, ac.currentTime + 1.2);
+    setTimeout(() => {
+      try { droneNodes.osc1.stop(); droneNodes.osc2.stop(); } catch(e) {}
+      droneNodes = null;
+    }, 1300);
+  } catch(e) {}
+}
+
+// ── CHIME (letter opens) ────────────
+function playChime() {
+  try {
+    const ac = getAC();
+    // Two partials only, very soft, quick decay — a whisper not a bell
+    [[396, 0], [528, 200]].forEach(([freq, delay]) => {
+      setTimeout(() => {
+        const osc = ac.createOscillator();
+        const gain = ac.createGain();
+        osc.type = 'sine';
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0, ac.currentTime);
+        gain.gain.linearRampToValueAtTime(0.030, ac.currentTime + 0.05);
+        gain.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + 1.6);
+        osc.connect(gain); gain.connect(ac.destination);
+        osc.start(); osc.stop(ac.currentTime + 1.6);
+      }, delay);
+    });
+  } catch(e) {}
+}
+
+// ── WATER DROP (ink impact) ─────────
+function playDrop() {
+  try {
+    const ac = getAC();
+    const osc = ac.createOscillator();
+    const gain = ac.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(900, ac.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(420, ac.currentTime + 0.14);
+    gain.gain.setValueAtTime(0.055, ac.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + 0.28);
+    osc.connect(gain); gain.connect(ac.destination);
+    osc.start(); osc.stop(ac.currentTime + 0.28);
+  } catch(e) {}
+}
+
+// ── COMPLETION TONE (long-press done) ─
+function playComplete() {
+  try {
+    const ac = getAC();
+    [[396, 0], [528, 130]].forEach(([freq, delay]) => {
+      setTimeout(() => {
+        const osc = ac.createOscillator();
+        const gain = ac.createGain();
+        osc.type = 'sine';
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0, ac.currentTime);
+        gain.gain.linearRampToValueAtTime(0.07, ac.currentTime + 0.08);
+        gain.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + 2);
+        osc.connect(gain); gain.connect(ac.destination);
+        osc.start(); osc.stop(ac.currentTime + 2);
+      }, delay);
+    });
+  } catch(e) {}
+}
+
+// ── BREATH (seal moment only) ────────
+// A single soft exhale — very low, very short, barely audible
+// Like the room itself sighing when something arrives
+function playBreath() {
+  try {
+    const ac = getAC();
+    const buf = ac.createBuffer(1, ac.sampleRate * 0.6, ac.sampleRate);
+    const data = buf.getChannelData(0);
+    for (let i = 0; i < data.length; i++) {
+      // Shaped noise — rises then falls like a breath out
+      const t = i / data.length;
+      const env = Math.sin(Math.PI * t) * Math.pow(t < 0.5 ? t * 2 : (1 - t) * 2, 0.6);
+      data[i] = (Math.random() * 2 - 1) * env * 0.018;
+    }
+    const src = ac.createBufferSource();
+    const filter = ac.createBiquadFilter();
+    const gain = ac.createGain();
+    // Low pass keeps it warm, removes any harshness
+    filter.type = 'lowpass';
+    filter.frequency.value = 320;
+    gain.gain.value = 0.5;
+    src.buffer = buf;
+    src.connect(filter); filter.connect(gain); gain.connect(ac.destination);
+    src.start();
+  } catch(e) {}
+}
+function showHeadphoneNudge() {
+  const t = document.getElementById('toast');
+  t.textContent = '🎧  Best experienced with headphones';
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 4000);
+}
+
+// ── INIT ON FIRST TOUCH ─────────────
+// Audio context must be unlocked by user gesture
+// Binaural removed from landing — only plays at hold screen
+function initSound() {
+  if (soundEnabled) return;
+  soundEnabled = true;
+  // No binaural on landing — removed per product decision
+  document.removeEventListener('touchstart', initSound);
+  document.removeEventListener('mousedown', initSound);
+}
+document.addEventListener('touchstart', initSound, { once: true, passive: true });
+document.addEventListener('mousedown', initSound, { once: true });
+
+/* ── SHOW CONTINUE WHEN TYPING ── */
+document.getElementById('name-input').addEventListener('input', function() {
+  const btn = document.getElementById('name-continue');
+  if (this.value.trim().length > 0) {
+    btn.classList.add('visible');
+  } else {
+    btn.classList.remove('visible');
+  }
+});
+
+/* ── ENTER KEY ── */
+document.getElementById('name-input')
+  .addEventListener('keydown', e => { if (e.key==='Enter') { e.preventDefault(); goToDomain(); } });
+</script>
+</body>
+</html>
